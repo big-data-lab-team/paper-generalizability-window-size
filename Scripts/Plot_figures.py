@@ -73,6 +73,12 @@ def plot_cv(dataset,CVs,n_splits):
 
     Y = dataset.iloc[:, dataset.shape[1] - 1].values
 
+    class_values=dataset.iloc[:,dataset.shape[1]-1].value_counts(sort=True)
+    dominant_class=class_values.keys()[0]
+    dominant_number=class_values[dominant_class]
+
+    percentage_dominate_class=((dominant_number /float(Y.shape[0]))*100)
+    print("In this dataset, dominant class is {} which occures {} times, {} percent of classes ".format(dominant_class,dominant_number,percentage_dominate_class))
     plot_group_class(classes=Y,groups=groups)
 
     for cv in CVs:
