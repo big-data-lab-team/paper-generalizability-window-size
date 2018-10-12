@@ -62,7 +62,7 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
 def plot_cv(dataset,CVs,n_splits):
 
     if(len(CVs)==0):
-        raise  ValueError('There is not any CV to plot.')
+        raise  ValueError('There is any CV to plot.')
 
 
     dataset = pd.read_csv(dataset, sep='\t')
