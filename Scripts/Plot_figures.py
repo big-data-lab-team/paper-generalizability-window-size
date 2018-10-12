@@ -20,7 +20,7 @@ def plot_group_class(classes, groups):
               ['Dominant class'], loc=(1.003,.94))
     plt.tight_layout()
     fig.subplots_adjust(right=.75)
-    plt.savefig('Class_subject.png')
+    plt.savefig('Figures/Class_subject.png')
 
 
 def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
@@ -71,7 +71,7 @@ def plot_cv(dataset,CVs,n_splits):
 
     X = dataset.iloc[:, 1:-1].values
 
-    Y = dataset.iloc[:, dataset.shape[1] - 1].values.revel()
+    Y = dataset.iloc[:, dataset.shape[1] - 1].values
 
     plot_group_class(classes=Y,groups=groups)
 
@@ -93,13 +93,17 @@ def plot_cv(dataset,CVs,n_splits):
 
         plt.tight_layout()
         fig.subplots_adjust(right=.7)
-        plt.savefig('{}.png'.format(fig_name))
+        plt.savefig('Figures/{}.png'.format(fig_name))
 
 
 
-
+#################################################################
+## Code starts here
+# This function reads the dataset0.5.cvs from /Data folder and plot the classes and subjects and also the user specified
+# Cross-validation process and save in /Figures Folder
 
 cvs = [TimeSeriesSplit,KFold,LeaveOneGroupOut,ShuffleSplit]
 
-plot_cv(dataset='dataset0.5.csv',CVs=cvs,n_splits=10)
+
+plot_cv(dataset='Dataset/dataset0.5.csv',CVs=cvs,n_splits=10)
 
