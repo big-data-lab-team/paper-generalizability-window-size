@@ -1,9 +1,39 @@
 \section{Introduction}
 Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors like accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
 
-\section{Sliding window method for time series classification}
+\section{Activity recognition process}
+% figure 2
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{Figures/signal.png}
+    \caption{Example of data coming from the x dimension of accelerator in the dataset for subject 1  }
+    \label{fig:signal}
+\end{figure}
 
----------------------
+As shown in Figure \ref{fig:signal}, the data coming from the sensors are scholastic over time and so as to extract the performed activities based on such signals, one of the Time-Series[TS] classification method should be applied. One of the best and widely used[] approach of TS classification is the sliding window process. This method consists of 5 steps which are shown in Figure \ref{fig:tsprocess} and are explained precisely in terms of HAR here.
+\begin{itemize}
+\item \textbf{Data acquisition:}There is a number of sensors attached to various parts of one's body which transform his or her the performing action to a set of signals and transmit them to the receiver(s). 
+\item \textbf{Preprocesing:} The submitted data from sensors may be disrupted by different factors such as electronic fluctuations and in order to make it smooth there is varying kind of filtering process like the low-pass filter which was applied in some studies \cite{morris2014recofit}; although these filter may remove some valuable information from the signals.  
+\item \textbf{Segmentation:}
+As Figure \ref{fig:signal} indicates, there is a kind of motion in the signals and to capture it, the signals are partitioned into several parts (windows). The number of data points (window size) in each window heavily impacts the accuracy of classifiers and finding the best window size is very challenging and time-consuming. If each window shares some part of itself with the previous one, it is called overlapping sliding windowing.  
+
+\item \textbf{Feature extraction:}
+Then each window is transformed into a vector of features ranging from autocorrelation features \cite{morris2014recofit} to time/frequency domain [] and also statistical features to represent it.  
+\item \textbf{Classification:}
+Finally, the Machine Learning classifier is fed by the vector of features to train the extracted features and their labels and assigns the future observation to one of the learned activities or labels. 
+
+
+\end{itemize}
+
+% figure 2
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.4\textwidth]{Figures/TSCprocess.jpeg}
+    \caption{Time Series classification process through sliding window approach which is retrieved from \cite{banos2014window}}
+    \label{fig:tsprocess}
+\end{figure}
+
+
 
 \section{Experiment setting}
 
@@ -96,7 +126,7 @@ In this section, different type of Cross-Validation(CV) strategies are explained
 
 \item \textbf{Time-series Cross-validation:}
 Due to the correlation between observations in Time-series based datasets, it is very crucial to train the model on the past samples and tests it on the future samples to estimate the generalization error of the trained model in the practice under a real-world scenario. As clearly illustrated in Figure \ref{fig:temporal-cv}, the Time-series CV focuses on splitting the dataset in such a way that the indices of the test set be higher than those of training set. It chooses the first K folds as training set and (K+1)-th as the test set. It should be noted that in each iteration the training sets are included the training sets that come before them. As an example in Figure \ref{fig:temporal-cv} the training set of fold \#3 includes training set \#2 and it includes \#1 and so on.
-This method inspects how the models fares in the course of time.
+This method inspects how the models fare in the course of time.
 
 
 % figure 3
@@ -108,7 +138,7 @@ This method inspects how the models fares in the course of time.
 \end{figure}
 
 \item \textbf{Subjective Cross-validation:}
-As mentioned before in section \ref{sec:dataset}, the used dataset in this study comprises the observations of 17 subjects with diverse profiles; consequently such dataset is likely to be dependent on individual subjects.Under such circumstances, a safe approach to know the performance of the model is training on particular set of subjects data and validate on the unseen ones in order to know how the trained model generalizes well on different groups.Although this method might be time-consuming (specially when the number of subjects is high), it is a very encouraging way to evaluate the domain-specific datasets.As can be seen in Figure \ref{fig:Subjective-cv}, in each fold the model trained on all groups except one which is used for testing.
+As mentioned before in section \ref{sec:dataset}, the used dataset in this study comprises the observations of 17 subjects with diverse profiles; consequently, such dataset is likely to be dependent on individual subjects. Under such circumstances, a safe approach to know the performance of the model is training on a particular set of subjects data and validate on the unseen ones in order to know how the trained model generalizes well on different groups. Although this method might be time-consuming (especially when the number of subjects is high), it is a very encouraging way to evaluate the domain-specific datasets. As can be seen in Figure \ref{fig:Subjective-cv}, in each fold the model trained on all groups except one which is used for testing.
 
 % figure 4
 \begin{figure}[h]
@@ -119,6 +149,7 @@ As mentioned before in section \ref{sec:dataset}, the used dataset in this study
 \end{figure}
 
 \end{itemize}
+
 
 
 
