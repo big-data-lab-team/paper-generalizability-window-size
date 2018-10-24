@@ -119,7 +119,6 @@ def test_plot_cv():
 # Cross-validation process and save in /Figures Folder
 
 cvs = [TimeSeriesSplit,KFold,LeaveOneGroupOut,ShuffleSplit]
-cvs=[TimeSeriesSplit]
 import os
 project_root = os.path.dirname(os.path.dirname(__file__))
 dataset= os.path.join(project_root, 'Dataset/dataset0.5.csv')
