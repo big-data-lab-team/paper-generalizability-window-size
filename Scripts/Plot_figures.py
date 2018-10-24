@@ -112,13 +112,14 @@ def plot_cv(dataset,CVs,n_splits):
     return True
 
 def test_plot_cv():
-  assert plot_cv==True
+  assert plot_cv
 #################################################################
 ## Code starts here
 # This function reads the dataset0.5.cvs from /Data folder and plot the classes and subjects and also the user specified
 # Cross-validation process and save in /Figures Folder
 
 cvs = [TimeSeriesSplit,KFold,LeaveOneGroupOut,ShuffleSplit]
+cvs=[TimeSeriesSplit]
 import os
 project_root = os.path.dirname(os.path.dirname(__file__))
 dataset= os.path.join(project_root, 'Dataset/dataset0.5.csv')
