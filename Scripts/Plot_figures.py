@@ -20,7 +20,10 @@ def plot_group_class(classes, groups):
               ['Dominant class'], loc=(1.003,.94))
     plt.tight_layout()
     fig.subplots_adjust(right=.75)
-    plt.savefig('Figures/Class_subject.png')
+
+    project_root = os.path.dirname(os.path.dirname(__file__))
+    output_folder = os.path.join(project_root, 'Figures')
+    plt.savefig('{}/Class_subject.png'.format(output_folder))
 
 
 def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
@@ -81,6 +84,9 @@ def plot_cv(dataset,CVs,n_splits):
     print("In this dataset, dominant class is {} which occures {} times, {} percent of classes ".format(dominant_class,dominant_number,percentage_dominate_class))
     plot_group_class(classes=Y,groups=groups)
 
+    project_root = os.path.dirname(os.path.dirname(__file__))
+    output_folder = os.path.join(project_root, 'Figures')
+
     for cv in CVs:
 
 
@@ -99,17 +105,22 @@ def plot_cv(dataset,CVs,n_splits):
 
         plt.tight_layout()
         fig.subplots_adjust(right=.7)
-        plt.savefig('Figures/{}.png'.format(fig_name))
 
 
+        plt.savefig('{}/{}.png'.format(output_folder,fig_name))
 
+    return True
+
+def test_plot_cv():
+  assert plot_cv==True
 #################################################################
 ## Code starts here
 # This function reads the dataset0.5.cvs from /Data folder and plot the classes and subjects and also the user specified
 # Cross-validation process and save in /Figures Folder
 
 cvs = [TimeSeriesSplit,KFold,LeaveOneGroupOut,ShuffleSplit]
-
-
-plot_cv(dataset='Dataset/dataset0.5.csv',CVs=cvs,n_splits=10)
+import os
+project_root = os.path.dirname(os.path.dirname(__file__))
+dataset= os.path.join(project_root, 'Dataset/dataset0.5.csv')
+plot_cv(dataset=dataset,CVs=cvs,n_splits=10)
 
