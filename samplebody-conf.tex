@@ -1,5 +1,14 @@
 \section{Introduction}
-Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors like accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
+Thanks to the potential application prospects of Human Activity 
+Recognition (HAR) in security, virtual reality, sports training and 
+health care[2]\TG{use bibtex for this citation}, it has become a very hot and interesting research field 
+for the machine-learning community in the past decades. It \TG{Unclear what is 'it' here} takes 
+advantage of data coming from internal sensors like accelerometers and 
+gyroscopes to automatically classify user activities. Since the 
+structure of data coming from sensors is stochastic over time, in order 
+to classify them, we have to apply one of the time series 
+classification techniques such as sliding window \TG{sliding window is not
+a classification technique, it's a way to buid a representation of a time series}.
 
 \section{Activity recognition process}
 % figure 2
@@ -10,18 +19,45 @@ Thanks to the potential application prospects of Human Activity Recognition(HAR)
     \label{fig:signal}
 \end{figure}
 
-As shown in Figure \ref{fig:signal}, the data coming from the sensors are scholastic over time and so as to extract the performed activities based on such signals, one of the Time-Series[TS] classification method should be applied. One of the best and widely used[] approach of TS classification is the sliding window process. This method consists of 5 steps which are shown in Figure \ref{fig:tsprocess} and are explained precisely in terms of HAR here.
+
+
+\TG{The following section is good but could be part of the intro.}
+As shown in Figure \ref{fig:signal}, the data coming from the sensors 
+are scholastic over time and so as to extract the performed activities 
+based on such signals, one of the Time-Series[TS] classification method 
+should be applied. One of the best and widely used[] approach of TS 
+classification is the sliding window process. This method consists of 5 
+steps which are shown in Figure \ref{fig:tsprocess} and are explained 
+precisely in terms of HAR here.
 \begin{itemize}
-\item \textbf{Data acquisition:}There is a number of sensors attached to various parts of one's body which transform his or her the performing action to a set of signals and transmit them to the receiver(s). 
-\item \textbf{Preprocesing:} The submitted data from sensors may be disrupted by different factors such as electronic fluctuations and in order to make it smooth there is varying kind of filtering process like the low-pass filter which was applied in some studies \cite{morris2014recofit}; although these filter may remove some valuable information from the signals.  
-\item \textbf{Segmentation:}
-As Figure \ref{fig:signal} indicates, there is a kind of motion in the signals and to capture it, the signals are partitioned into several parts (windows). The number of data points (window size) in each window heavily impacts the accuracy of classifiers and finding the best window size is very challenging and time-consuming. If each window shares some part of itself with the previous one, it is called overlapping sliding windowing.  
+\item \textbf{Data acquisition:} There is a number of sensors attached 
+to various parts of one's body which \weird{transform his or her the 
+performing action} to a set of signals and transmit them to the 
+receiver(s). 
+\item \textbf{Preprocesing:} The submitted data from sensors may be 
+disrupted by different factors such as electronic fluctuations and in 
+order to make it smooth there is varying kind of filtering process like 
+the low-pass filter which was applied in some studies 
+\cite{morris2014recofit}; although these filter may remove some 
+valuable information from the signals. \TG{OK with content but sentence too long.}  
+\item \textbf{Segmentation:} As Figure \ref{fig:signal} indicates, 
+\weird{there is a kind of motion in the signals} and to capture it, the signals 
+are partitioned into several parts (windows). The number of data points 
+(window size) in each window heavily impacts the accuracy of 
+classifiers \TG{reference needed} and finding the best window size is very challenging and 
+time-consuming \TG{another reference needed}. If each window shares some part of itself with the 
+previous one, it is called overlapping sliding windowing.  
 
-\item \textbf{Feature extraction:}
-Then each window is transformed into a vector of features ranging from autocorrelation features \cite{morris2014recofit} to time/frequency domain [] and also statistical features to represent it.  
-\item \textbf{Classification:}
-Finally, the Machine Learning classifier is fed by the vector of features to train the extracted features and their labels and assigns the future observation to one of the learned activities or labels. 
+\item \textbf{Feature extraction:} Then each window is transformed into 
+a vector of features such as autocorrelation features 
+\cite{morris2014recofit} to time/frequency domain [] and also 
+statistical features to represent it.  
+\item \textbf{Classification:} Finally, the classifier 
+is fed by the vector of features to train the extracted features and 
+their labels and assigns the future observation to one of the learned 
+activities or labels. 
 
+\TG{You could also explain when the labels are added to the training set and how.}
 
 \end{itemize}
 
@@ -32,14 +68,46 @@ Finally, the Machine Learning classifier is fed by the vector of features to tra
     \caption{Time Series classification process through sliding window approach which is retrieved from \cite{banos2014window}}
     \label{fig:tsprocess}
 \end{figure}
+\TG{If Figure 2 is extracted from reference [3], then something like 
+"extracted from [3]" must be added to the caption. However, it is not 
+recommended to do that in papers, due to copyright issues. Or you 
+should at least get the permission of the authors. But for such a 
+general Figure, I'd recommend to do your own, or just explain it with 
+words.}
 
+\TG{Up to now, the paper did a good job positioning the context and defining
+important concepts. But we still don't know what its goal will be. I think
+you should explain as early as possible that the paper will investigate the
+effect of different validation schemes on the performance of classifiers, and
+on the choice of the optimal window size. It should refer to the paper you used
+as a reference, and explain that we will reproduce and extend the experiments
+reported there, using the same dataset. You can also summarize the contributions
+of the paper with bullet points, to help the reviewer.
+
+Once you have positioned the context and explained the goal of the paper, the introduction
+should briefly detail the outline of the paper.
+}
 
 
 \section{Experiment setting}
 
 \subsection{Dataset} \label{sec:dataset}
-It is very important to use an adequate representative dataset to evaluate the impact of window size on the performance of the classifier in the recognition process. In this paper, one of the most complete human activity recognition dataset \cite{banos2012benchmark} in terms of the number of considered activities and subjects is used. This dataset is composed of data collected from 17 subjects of diverse profiles while wearing 9 Xsens inertial measurement units on different parts of their body and perform 33 fitness activities [Table \ref{tab:Activites}] ranging from Warm up to fitness exercises in an out-of-lab environment. Each sensor node provides tri-directional acceleration, gyroscope, and magnetic field
-measurements as well as orientation estimates in quaternion format (4D). Although using several sensors help to capture the body dynamics, here only the acceleration data is used to study. This dataset provides data for three sensor displacement scenarios to compare the sensor anomalies(out of the scope of this work); thus, only the data from default scenario is used.
+It is very important to use an adequate representative dataset to 
+evaluate the impact of window size on the performance of the classifier 
+in the recognition process. In this paper, one of the most complete 
+human activity recognition dataset \cite{banos2012benchmark} in terms 
+of the number of considered activities and subjects is used. This 
+dataset is composed of data collected from 17 subjects of diverse 
+profiles while wearing 9 Xsens inertial measurement units on different 
+parts of their body and perform 33 fitness activities [Table 
+\ref{tab:Activites}] ranging from Warm up to fitness exercises in an 
+out-of-lab environment. Each sensor node provides tri-directional 
+acceleration, gyroscope, and magnetic field measurements as well as 
+orientation estimates in quaternion format (4D). Although using several 
+sensors help to capture the body dynamics, here only the acceleration 
+data is used to study. This dataset provides data for three sensor 
+displacement scenarios to compare the sensor anomalies(out of the scope 
+of this work); thus, only the data from default scenario is used.
 
 %  start of Table1
 \begin{table}[h!]
@@ -95,11 +163,53 @@ Repetitive forward stretching (20x) & \tabularnewline
 %  end of Table1
 
 \subsection{Setup}
-In this section, the applied setups for activity recognition process which was explained in section {"if we add a section to explain the classification, it should be referred here"} are described. Regarding the prepossessing step, in order to avoid the removal of relevant information, here no prepossessing of the data is applied. As for segmentation,the overlapping (  sliding at 200ms i.e., each 5s window
-shares 4.8s of data with the previous window) \cite{morris2014recofit} and non-overlapping \cite{banos2014window} sliding window approach with diverse window sizes ranging from .25 s to 7 s in the steps of .25 s are applied which this range covers most of the window sizes were used in previous studies[]. Although we believe that the non-overlapping sliding window approach overlooks some valuable patterns of movements between close windows, here it uses for the sake of comparison. 
-In feature extraction part, three different feature sets(FS) are used namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = {mean, standard deviation, maximum, minimum and mean crossing rate}.Most of these features have been used in previous works[] due to their speed in the calculation and being informative over each window. Finally in recognition part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(KNN), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
-Here, a cross-validation (CV) process which according to \cite{arlot2010survey} is the most accurate approach for model selection is used in order to compare the performance of diverse models under different window size. However, due to the fact that data coming from sensors are temporal, we introduce two more realistic and promising cross-validation process which will be explained deeply in the next section.\newline
-As can be seen in Figure \ref{fig:class}, the dataset is extremely imbalance meaning that there are more data-points for some classes(activities)in the dataset. Under such circumstances, the f1-score which conveys the balance between the precision and the recall based on the {} is an appropriate metric for evaluating the performance of the models. It reaches its best value at 1 (perfect precision and recall) and worst at 0.
+In this section, the applied setups for activity recognition process 
+which was explained in section {"if we add a section to explain the 
+classification, it should be referred here"} are described. Regarding 
+the prepossessing step, in order to avoid the removal of relevant 
+information, here no prepossessing of the data is applied. As for 
+segmentation,the overlapping (  sliding at 200ms i.e., each 5s window 
+shares 4.8s of data with the previous window) \cite{morris2014recofit} 
+and non-overlapping \cite{banos2014window} sliding window approach with 
+diverse window sizes ranging from .25 s to 7 s in the steps of .25 s 
+are applied which this range covers most of the window sizes were used 
+in previous studies[]. Although we believe that the non-overlapping 
+sliding window approach overlooks some valuable patterns of movements 
+between close windows, here it uses for the sake of comparison \TG{This section should talk about
+what the previous paper has done. Don't mix it with your contribution,
+you'll detail that in the next section.}. In 
+feature extraction part, three different feature sets(FS) are used 
+namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = 
+{mean, standard deviation, maximum, minimum and mean crossing 
+rate}.Most of these features have been used in previous works[] due to 
+their speed in the calculation and being informative over each window. 
+Finally in recognition part, several powerful and common machine 
+learning models are selected for discrimination of activities: Decision 
+Tree (DT),k-nearest neighbors(KNN), Naive Bayes (NB), Nearest centroid 
+classifier (NCC), Random forest(RF)and Logistic regression 
+classifier(LR).We used these classifiers as implemented in scikit-learn 
+0.20 \cite{pedregosa2011scikit}.\newline Here, a cross-validation (CV) 
+process which according to \cite{arlot2010survey} is the most accurate 
+approach for model selection is used in order to compare the 
+performance of diverse models under different window size. However, due 
+to the fact that data coming from sensors are temporal, we introduce 
+two more realistic and promising cross-validation process which will be 
+explained deeply in the next section. \TG{This section should talk about
+what the previous paper has done. Don't mix it with your contribution,
+you'll detail that in the next section.}
+
+As can be seen in Figure 
+\ref{fig:class}, the dataset is extremely imbalance meaning that there 
+are more data-points for some classes(activities)in the dataset. Under 
+such circumstances, the f1-score which conveys the balance between the 
+precision and the recall based on the {} is an appropriate metric for 
+evaluating the performance of the models. It reaches its best value at 
+1 (perfect precision and recall) and worst at 0.
+
+\TG{The previous section is fair but lack structure, which makes
+them difficult to read. Instead of the non-informative ``Setup" title, I would
+split this section into (1) data representation (windowing, etc), (2) 
+classifiers, (3) evaluation (with two paragraphs, CV and F1 score).}
 
 % figure 2
 \begin{figure}[h]
@@ -108,12 +218,30 @@ As can be seen in Figure \ref{fig:class}, the dataset is extremely imbalance mea
     \caption{Example of distribution of activities and subjects in overlapping windowed dataset with window size=.5 s.The class 0 which means doing nothing accounts for more than 72 percent of the classes   }
     \label{fig:class}
 \end{figure}
+\TG{Figure 3: explain what the color code is, for instance: ``colors represent different types of activities".}
 
 \subsection{Time Series  vs. Classic Cross-Validation}
-In this section, different type of Cross-Validation(CV) strategies are explained and the reason that why classic CV is not suitable for activity recognition process.\newline
+\TG{Start a new section here, now this is your work, before it was a summary of the previous paper.}
+In this section, different type of Cross-Validation(CV) strategies are 
+explained and the reason that why classic CV is not suitable for 
+activity recognition process.\newline
 
 \begin{itemize}
-\item \textbf{Classic Cross-validation}: The main hypothesis of this type of CV is that samples are Independent and Identically Distributed (i.i.d.).It means that all the data points sampled from the same distribution and also the distribution has no memory of past generated samples \ref{''}. Under such an assumption, as shown in Figure \ref{fig:iid-cv} the test set can be any part of the dataset. However, we know that samples coming from sensors are characterized to have correlation and the i.i.d. assumption of the CV is violated. Thus, evaluation models through classic CV would result in an illogical choosing of test and training set since the test set can be before the training set which is unreasonable. Although one may claim that after partitioning the dataset into some windows based on the Markov chain \cite{gilks1995markov} they are i.i.d..However, through splitting the dataset by a window size, there is no guarantee to find the best number of samples to make a window completely independent of others. 
+\item \textbf{Classic Cross-validation}: The main hypothesis of this 
+type of CV is that samples are Independent and Identically Distributed 
+(i.i.d.).It means that all the data points sampled from the same 
+distribution and also the distribution has no memory of past generated 
+samples \ref{''}. Under such an assumption, as shown in Figure 
+\ref{fig:iid-cv} the test set can be any part of the dataset. However, 
+we know that samples coming from sensors are characterized to have 
+correlation and the i.i.d. assumption of the CV is violated. Thus, 
+evaluation models through classic CV would result in an illogical 
+choosing of test and training set since the test set can be before the 
+training set which is unreasonable. Although one may claim that after 
+partitioning the dataset into some windows based on the Markov chain 
+\cite{gilks1995markov} they are i.i.d..However, through splitting the 
+dataset by a window size, there is no guarantee to find the best number 
+of samples to make a window completely independent of others. 
 
 % figure 3
 \begin{figure}[h]
@@ -136,6 +264,7 @@ This method inspects how the models fare in the course of time.
     \caption{10-TCV process in overlapping windowed dataset by window size=.5 s }
     \label{fig:temporal-cv}
 \end{figure}
+\TG{Figure~\ref{fig:temporal-cv} doesn't seem to reflect the discussion we had on Monday.}
 
 \item \textbf{Subjective Cross-validation:}
 As mentioned before in section \ref{sec:dataset}, the used dataset in this study comprises the observations of 17 subjects with diverse profiles; consequently, such dataset is likely to be dependent on individual subjects. Under such circumstances, a safe approach to know the performance of the model is training on a particular set of subjects data and validate on the unseen ones in order to know how the trained model generalizes well on different groups. Although this method might be time-consuming (especially when the number of subjects is high), it is a very encouraging way to evaluate the domain-specific datasets. As can be seen in Figure \ref{fig:Subjective-cv}, in each fold the model trained on all groups except one which is used for testing.
@@ -151,7 +280,8 @@ As mentioned before in section \ref{sec:dataset}, the used dataset in this study
 \end{itemize}
 
 
-
+\TG{Writing of this section could be improved but overall it's good. On the figures,
+group should be replaced by subject.}
 
 
 
@@ -269,7 +399,12 @@ In this section the performance of models for diverse window sizes is examined.
 \end{figure}
 
 
-
+\TG{We need to work on results presentation. First comments: (1) color 
+code should be consistent across figures, (2) all the graphs should be 
+put on 1 page: 4 lines $\times$ 3 columns, columns represent feature 
+sets, line represent 2 CV $\timex$ overlapping vs non-overlapping (use subfigure for that), (3) make captions
+as short as possible so that they can be parsed quickly.
+}
 
 
 \section{Discussion}
