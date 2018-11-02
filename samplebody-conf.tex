@@ -1,8 +1,9 @@
-\section{Introduction}
+\section{Introduction[Skip please]}
 Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors like accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
 
-\section{Activity recognition process}
-% figure 2
+\section{Background}
+\subsection{Activity recognition process}\label{subsec:ARP}
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=.4\textwidth]{Figures/signal.png}
@@ -10,17 +11,19 @@ Thanks to the potential application prospects of Human Activity Recognition(HAR)
     \label{fig:signal}
 \end{figure}
 
-As shown in Figure \ref{fig:signal}, the data coming from the sensors are scholastic over time and so as to extract the performed activities based on such signals, one of the Time-Series[TS] classification method should be applied. One of the best and widely used[] approach of TS classification is the sliding window process. This method consists of 5 steps which are shown in Figure \ref{fig:tsprocess} and are explained precisely in terms of HAR here.
+
+An Activity Recognition Process (ARP), also known as the activity recognition chain, is a sequence of signal processing, pattern recognition, and machine learning techniques that implements a specific activity recognition system behavior \cite{bulling2014tutorial}. This method consists of 5 steps which are shown in Figure \ref{fig:tsprocess} and is explained precisely in this section.
 \begin{itemize}
-\item \textbf{Data acquisition:}There is a number of sensors attached to various parts of one's body which transform his or her the performing action to a set of signals and transmit them to the receiver(s). 
-\item \textbf{Preprocesing:} The submitted data from sensors may be disrupted by different factors such as electronic fluctuations and in order to make it smooth there is varying kind of filtering process like the low-pass filter which was applied in some studies \cite{morris2014recofit}; although these filter may remove some valuable information from the signals.  
+\item \textbf{Data acquisition:}There are several sensors attached to various parts of one's body which transform his or her performing action to a set of signals and transmit them to the receiver(s). 
+\item \textbf{Preprocesing:} The submitted data from sensors may be disrupted by artifacts caused
+by a variety of sources such as electronic fluctuations, sensor malfunctions, and physical activities. In order to eliminate such artifacts, we can apply varying kind of filtering process like the low-pass filter which was applied in some studies \cite{morris2014recofit}. It should be noted that applying these filters may result in removing some valuable information from the signals.  
 \item \textbf{Segmentation:}
-As Figure \ref{fig:signal} indicates, there is a kind of motion in the signals and to capture it, the signals are partitioned into several parts (windows). The number of data points (window size) in each window heavily impacts the accuracy of classifiers and finding the best window size is very challenging and time-consuming. If each window shares some part of itself with the previous one, it is called overlapping sliding windowing.  
+As Figure \ref{fig:signal} indicates, there is a kind of motion in the signals and to capture it, the signals are partitioned into several parts (windows). The label (activity)of each window is the most frequent activity. The number of data points (window size) in each window is not prior and heavily impacts the performance of classifiers \cite{bulling2014tutorial} and different sizes should test to find the optimal window size which is challenging and time-consuming. If each window shares some part of itself with the previous one, it is called overlapping sliding windowing.  
 
 \item \textbf{Feature extraction:}
-Then each window is transformed into a vector of features ranging from autocorrelation features \cite{morris2014recofit} to time/frequency domain [] and also statistical features to represent it.  
+Then each window is transformed into a vector of features ranging from auto-correlation features \cite{morris2014recofit} to time/frequency domain and statistical features which are discriminative for the activities.
 \item \textbf{Classification:}
-Finally, the Machine Learning classifier is fed by the vector of features to train the extracted features and their labels and assigns the future observation to one of the learned activities or labels. 
+Finally, the Machine Learning classifier is fed by the vector of features and corresponding ground truth activity label to train and assigns the future observations to one of the learned activities or labels.
 
 
 \end{itemize}
@@ -28,12 +31,49 @@ Finally, the Machine Learning classifier is fed by the vector of features to tra
 % figure 2
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.4\textwidth]{Figures/TSCprocess.jpeg}
-    \caption{Time Series classification process through sliding window approach which is retrieved from \cite{banos2014window}}
+    \includegraphics[width=.4\textwidth]{Figures/HARP.png}
+    \caption{Time Series classification process through sliding window approach}
     \label{fig:tsprocess}
 \end{figure}
 
+% figure 2
 
+\subsection{Their work-Please suggest a subject for this section} \label{sub:theirwork}
+As discussed in the Section \ref{subsec:ARP} opting the number of data-points (window size)in the segmentation stage of the ARP can influence the performance of the classifiers and mostly is selected by trial and error or based on the previous figures. Banos et al \cite{banos2014window} does an extensive study to show such impact and provide a guideline to select the window size.They apply ARP (\ref{subsec:ARP}) on the acceleration data of a very big dataset \cite{banos2012benchmark} which is precisely explained in the Section \ref{sec:dataset}.\cite{banos2014window}segments the signals without any preprocessing by non-overlapping sliding window approach with diverse sizes ranging from .25 s to 7 s in the steps of .25 s.Regarding the feature extraction step, they consider three different feature sets(FS) namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = {mean, standard deviation, maximum, minimum and mean crossing rate}.Most of these features have been used in previous works due to their speed in the calculation and being informative and discriminative over each window. They also take advantage of four machine learning models: C4.5 decision trees (DT), k-nearest neighbors (kNN) with k=3, naive Bayes (NB) and nearest centroid classifier (NCC) to classify the activities and report the f1-score through a ten-fold cross-validation (10-fold XV) process to choose the optimal window size. We build on their work to remove several limitations which are explained in the next section.
+
+\subsection{Limitations}
+In this section two significant determinants which are overlooked in \cite{banos2014window} are examined categorically.
+
+\begin{figure*}[htp]
+  \centering
+  \subfigure[Non-overlapping]{
+\label{fig:NOSW}\includegraphics[scale=0.4]{Figures/NOSW.png}}\quad
+  \subfigure[Overlapping]{\label{fig:OSW}\includegraphics[scale=0.355]{Figures/OSW.png}}
+
+   \caption{10 second slidin window}
+   \label{fig:SlidingWindow}
+\end{figure*}
+
+\begin{itemize}
+\item \textbf{Non-overlapping sliding window}:As described in Section \ref{sub:theirwork}, \cite{banos2014window} uses a non-overlapping sliding window technique in the segmentation step of the human activity process.Figure \ref{fig:SlidingWindow} apparently shows the non-overlapping sliding window and overlapping sliding window processes. In segmentation step of ARP, we try to segment the signals so that the data points of each activity settle entirely in a window and also each window contains the observations of only one activity in order to make the features calculation over each window more discriminative.
+As can be seen in the \ref{fig:SlidingWindow}, the probability of alighting each activity in a window and having a purer window in \ref{fig:NOSW} is lower than that in \ref{fig:OSW}.To illustrate, consider an activity which starts from t=5s and lasts 10 s.In the non-overlapping approach, the half of datapoints settle in the first window and the rest will be in the next window. However, in the overlapping sliding window, the entire activity will be in the second window. On the other hand, the overlapping approach captures more patterns in the signals and leads to more data which usually appropriate for machine learning models. Thus, making decision for any part of the human ARP base on the non-overlapping sliding window may be not accurate.\newline
+
+
+\item \textbf{Classic K-fold cross-validation (CV) process}:
+\cite{banos2014window} applies a 10-fold CV process in order to evaluate the performance of their models.
+The main hypothesis of the classic K-fold cross-validation process is that samples are Independent and Identically Distributed (i.i.d.).It means that all the data points sampled from the same distribution and also the distribution has no memory of past generated samples. Under such an assumption, as shown in Figure \ref{fig:Shuffle-cv} the test set can be any part of the dataset. However, we know that samples coming from sensors are characterized to have correlation and the i.i.d. assumption of the CV is violated. Thus, evaluation models through classic CV would result in an illogical choosing of test and training set since the test set can be before the training set which is unreasonable. Although one may claim that after partitioning the dataset into some windows based on the Markov chain \cite{gilks1995markov} they are i.i.d..However, through splitting the dataset by a window size, there is no guarantee to find the best number of samples to make a window completely independent of others. Hence, in order to find the best window size for the segmentation part of ARP based on the performance of classifiers, we should use more realistic cross-validation process such as Subjective cross-validation process which (see Section )
+
+% figure 3
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{Figures/ShuffleSplit.png}
+    \caption{10-CV process in overlapping windowed dataset by window size=.5 s }
+    \label{fig:Shuffle-cv}
+\end{figure}
+
+\end{itemize}
+
+We reproduce their work with the same dataset and improve it by applying overlapping sliding window approach instead of non-overlapping in segmentation stage and Subjective CV as an alternative for classic k-fold CV. In the next section, the dataset and methodology are explained precisely.
 
 \section{Experiment setting}
 
@@ -94,169 +134,85 @@ Repetitive forward stretching (20x) & \tabularnewline
 
 %  end of Table1
 
-\subsection{Setup}
-In this section, the applied setups for activity recognition process which was explained in section {"if we add a section to explain the classification, it should be referred here"} are described. Regarding the prepossessing step, in order to avoid the removal of relevant information, here no prepossessing of the data is applied. As for segmentation,the overlapping (  sliding at 200ms i.e., each 5s window
-shares 4.8s of data with the previous window) \cite{morris2014recofit} and non-overlapping \cite{banos2014window} sliding window approach with diverse window sizes ranging from .25 s to 7 s in the steps of .25 s are applied which this range covers most of the window sizes were used in previous studies[]. Although we believe that the non-overlapping sliding window approach overlooks some valuable patterns of movements between close windows, here it uses for the sake of comparison. 
-In feature extraction part, three different feature sets(FS) are used namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = {mean, standard deviation, maximum, minimum and mean crossing rate}.Most of these features have been used in previous works[] due to their speed in the calculation and being informative over each window. Finally in recognition part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(KNN), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
-Here, a cross-validation (CV) process which according to \cite{arlot2010survey} is the most accurate approach for model selection is used in order to compare the performance of diverse models under different window size. However, due to the fact that data coming from sensors are temporal, we introduce two more realistic and promising cross-validation process which will be explained deeply in the next section.\newline
-As can be seen in Figure \ref{fig:class}, the dataset is extremely imbalance meaning that there are more data-points for some classes(activities)in the dataset. Under such circumstances, the f1-score which conveys the balance between the precision and the recall based on the {} is an appropriate metric for evaluating the performance of the models. It reaches its best value at 1 (perfect precision and recall) and worst at 0.
+\subsection{Please suggest a name for this section}
+In this section the setting of our work for ARP which was explained before in Section \ref{subsec:ARP} is clarified. Like \cite{banos2014window} in this work no preprocessing is applied to the dataset. As for segmentation stage, the overlapping sliding window technique sliding at 200 ms for diverse window sizes ranging from .25 s to 7 s is used (i.e., each 5s window shares 4.8s of data with the previous window). Regarding the feature extraction step, the same feature sets as \cite{banos2014window} are considered. Finally, for the classification part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(kNN, k=3), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
+
+Here, in order to evaluate the model performance under different window sizes, we use a subjective CV process (see Section \ref{sub:subjective CV} for explanation).
+
+As can be seen in Figure \ref{fig:class}, the dataset is extremely imbalance meaning that there are more data-points for some classes(activities)in the dataset. Under such circumstances, the f1-score which conveys the balance between the precision and the recall is an appropriate metric for evaluating the performance of the models. It reaches its best value at 1 (perfect precision and recall) and worst at 0.
 
 % figure 2
 \begin{figure}[h]
     \centering
     \includegraphics[width=.4\textwidth]{Figures/Class_subject.png}
-    \caption{Example of distribution of activities and subjects in overlapping windowed dataset with window size=.5 s.The class 0 which means doing nothing accounts for more than 72 percent of the classes   }
+    \caption{Example of distribution of activities and subjects in overlapping windowed dataset with window size=.5 s.The class 0 which means doing nothing accounts for more than 72 percent of the classes.Each color represents different activities and subjects in "Class" and "Subjects" respectively.}
     \label{fig:class}
 \end{figure}
 
-\subsection{Time Series  vs. Classic Cross-Validation}
-In this section, different type of Cross-Validation(CV) strategies are explained and the reason that why classic CV is not suitable for activity recognition process.\newline
-
-\begin{itemize}
-\item \textbf{Classic Cross-validation}: The main hypothesis of this type of CV is that samples are Independent and Identically Distributed (i.i.d.).It means that all the data points sampled from the same distribution and also the distribution has no memory of past generated samples \ref{''}. Under such an assumption, as shown in Figure \ref{fig:iid-cv} the test set can be any part of the dataset. However, we know that samples coming from sensors are characterized to have correlation and the i.i.d. assumption of the CV is violated. Thus, evaluation models through classic CV would result in an illogical choosing of test and training set since the test set can be before the training set which is unreasonable. Although one may claim that after partitioning the dataset into some windows based on the Markov chain \cite{gilks1995markov} they are i.i.d..However, through splitting the dataset by a window size, there is no guarantee to find the best number of samples to make a window completely independent of others. 
-
-% figure 3
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.5\textwidth]{Figures/ShuffleSplit.png}
-    \caption{10-CV process in overlapping windowed dataset by window size=.5 s }
-    \label{fig:iid-cv}
-\end{figure}
-
-
-\item \textbf{Time-series Cross-validation:}
-Due to the correlation between observations in Time-series based datasets, it is very crucial to train the model on the past samples and tests it on the future samples to estimate the generalization error of the trained model in the practice under a real-world scenario. As clearly illustrated in Figure \ref{fig:temporal-cv}, the Time-series CV focuses on splitting the dataset in such a way that the indices of the test set be higher than those of training set. It chooses the first K folds as training set and (K+1)-th as the test set. It should be noted that in each iteration the training sets are included the training sets that come before them. As an example in Figure \ref{fig:temporal-cv} the training set of fold \#3 includes training set \#2 and it includes \#1 and so on.
-This method inspects how the models fare in the course of time.
-
-
-% figure 3
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.5\textwidth]{Figures/temporal-CV.png}
-    \caption{10-TCV process in overlapping windowed dataset by window size=.5 s }
-    \label{fig:temporal-cv}
-\end{figure}
-
-\item \textbf{Subjective Cross-validation:}
+\subsection{Subjective cross-validation process} \label{sub:subjective CV}
 As mentioned before in section \ref{sec:dataset}, the used dataset in this study comprises the observations of 17 subjects with diverse profiles; consequently, such dataset is likely to be dependent on individual subjects. Under such circumstances, a safe approach to know the performance of the model is training on a particular set of subjects data and validate on the unseen ones in order to know how the trained model generalizes well on different groups. Although this method might be time-consuming (especially when the number of subjects is high), it is a very encouraging way to evaluate the domain-specific datasets. As can be seen in Figure \ref{fig:Subjective-cv}, in each fold the model trained on all groups except one which is used for testing.
 
 % figure 4
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.5\textwidth]{Figures/subjective-CV.png}
+    \includegraphics[width=.5\textwidth]{Figures/LeaveOneGroupOut.png}
     \caption{17-SCV process in overlapping windowed dataset by window size=.5 s- here there are 17 subjects in the dataset,consequently 17 folds  }
     \label{fig:Subjective-cv}
 \end{figure}
 
-\end{itemize}
-
-
-
-
-
 
 \section{Results}
 
-In this section the performance of models for diverse window sizes is examined.
-
-% i.i.d figures
-
-% non-overlapping
+In this section, the performance of models for diverse window sizes is examined.
 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS1-iid-splitting-non-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 1-Non-overlapping windowing-i.i.d CV}
-    \label{fig:iid-nonover-fs1}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS2-iid-splitting-non-overlapping.png}
+\begin{figure*}[htp]
+  \centering
+  \subfigure[FS1]{
+\label{fig:NO-FS1-iid}\includegraphics[scale=0.355]{Figures/FS1-iid-splitting-non-overlapping.png}}\quad
+  \subfigure[FS2]{\label{fig:NO-FS2-iid}\includegraphics[scale=0.355]{Figures/FS2-iid-splitting-non-overlapping.png}}
+  \subfigure[FS3]{\label{fig:NO-FS3-iid}\includegraphics[scale=0.355]{Figures/FS3-iid-splitting-non-overlapping.png}}
    
-    \caption{Model performance vs. window sizes for feature set 2--Non-overlapping windowing-i.i.d CV}
-    \label{fig:iid-nonover-fs2}
-\end{figure}
+   \caption{Non-overlapping windowing-i.i.d CV}
+   \label{fig:NO-iid-results}
+\end{figure*}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS3-iid-splitting-non-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 3--Non-overlapping windowing-i.i.d CV}
-    \label{fig:iid-nonover-fs3}
-\end{figure}
-
-
-% overlapping
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS1-iid-splitting-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 1-overlapping windowing-i.i.d CV}
-    \label{fig:iid-over-fs1}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS2-iid-splitting-overlapping.png}
-    
-        \includegraphics[width=.3\textwidth]{Figures/FS2-iid-splitting-overlapping.png}
-
+\begin{figure*}[htp]
+  \centering
+  \subfigure[FS1]{
+\label{fig:O-FS1-iid}\includegraphics[scale=0.355]{Figures/FS1-iid-splitting-overlapping.png}}\quad
+  \subfigure[FS2]{\label{fig:O-FS2-iid}\includegraphics[scale=0.355]{Figures/FS2-iid-splitting-overlapping.png}}
+  \subfigure[FS3]{\label{fig:O-FS3-iid}\includegraphics[scale=0.355]{Figures/FS3-iid-splitting-overlapping.png}}
    
-    \caption{Model performance vs. window sizes for feature set 2-overlapping windowing-i.i.d CV}
-    \label{fig:iid-over-fs2}
-\end{figure}
+   \caption{Overlapping windowing-i.i.d CV}
+    \label{fig:O-iid-results}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS3-iid-splitting-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 3-overlapping windowing-i.i.d CV}
-    \label{fig:iid-over-fs3}
-\end{figure}
+\end{figure*}
+
+\begin{figure*}[htp]
+  \centering
+  \subfigure[FS1]{
+\label{fig:NO-FS1-sbj}\includegraphics[scale=0.355]{Figures/FS1-subjective-splitting-non-overlapping.png}}\quad
+  \subfigure[FS2]{\label{fig:NO-FS2-sbj}\includegraphics[scale=0.355]{Figures/FS2-subjective-splitting-non-overlapping.png}}
+  \subfigure[FS3]{\label{fig:NO-FS3-sbj}\includegraphics[scale=0.355]{Figures/FS3-subjective-splitting-non-overlapping.png}}
+   
+   \caption{Non-overlapping windowing-subjective CV}
+    \label{fig:NO-subjective-results}
+
+\end{figure*}
 
 
-%subjective figures
+\begin{figure*}[htp]
+  \centering
+  \subfigure[FS1]{
+\label{fig:O-FS1-sbj}\includegraphics[scale=0.355]{Figures/FS1-subjective-splitting-overlapping.png}}\quad
+  \subfigure[FS2]{\label{fig:O-FS2-sbj}\includegraphics[scale=0.355]{Figures/FS2-subjective-splitting-overlapping.png}}
+  %\subfigure[FS3]{\label{fig:O-FS3-sbj}\includegraphics[scale=0.355]{Figures/FS3-subjective-splitting-overlapping.png}}
+   
+   \caption{Overlapping windowing-subjective CV}
+    \label{fig:O-subjective-results}
 
-%non-overlapping
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS1-subjective-splitting-non-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 1-Non-overlapping windowing-subjective CV}
-    \label{fig:sbj-nonover-fs1}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS2-subjective-splitting-non-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 2-Non-overlapping windowing-subjective CV}
-    \label{fig:sbj-nonover-fs2}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS3-subjective-splitting-non-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 3-Non-overlapping windowing-subjective CV}
-    \label{fig:sbj-nonover-fs3}
-\end{figure}
-
-%overlapping
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS1-subjective-splitting-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 1-overlapping windowing-subjective CV}
-    \label{fig:sbj-over-fs1}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS2-subjective-splitting-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 2-overlapping windowing-subjective CV}
-    \label{fig:sbj-nonover-fs2}
-\end{figure}
-
-% for FS3 is not ready yet
+\end{figure*}
 
 
 
@@ -264,12 +220,6 @@ In this section the performance of models for diverse window sizes is examined.
 
 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.3\textwidth]{Figures/FS2-iid-splitting-non-overlapping.png}
-    \caption{Model performance vs. window sizes for feature set 1--Non-overlapping windowing-subjective CV}
-    \label{fig:sbj-nonover-fs1}
-\end{figure}
 
 
 

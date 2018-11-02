@@ -53,11 +53,11 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
     if(isinstance(cv,LeaveOneGroupOut)):
       n_splits=cv.get_n_splits(groups=group)
 
-    yticklabels = list(range(n_splits)) + ['class', 'group']
+    yticklabels = list(range(n_splits)) + ['class', 'subject']
     ax.set(yticks=np.arange(n_splits+2) + .5, yticklabels=yticklabels,
            xlabel='Sample index', ylabel="CV iteration",
            ylim=[n_splits+2.2, -.2], xlim=[0, len(X)])
-    ax.set_title('{}'.format(type(cv).__name__), fontsize=15)
+    #ax.set_title('{}'.format(type(cv).__name__), fontsize=15)
     return ax
 
 
@@ -118,7 +118,7 @@ def test_plot_cv():
 # This function reads the dataset0.5.cvs from /Data folder and plot the classes and subjects and also the user specified
 # Cross-validation process and save in /Figures Folder
 
-cvs = [TimeSeriesSplit,KFold,LeaveOneGroupOut,ShuffleSplit]
+cvs = [KFold,LeaveOneGroupOut,ShuffleSplit]
 import os
 project_root = os.path.dirname(os.path.dirname(__file__))
 dataset= os.path.join(project_root, 'Dataset/dataset0.5.csv')

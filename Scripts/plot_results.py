@@ -9,13 +9,14 @@ input_path = os.path.join(project_root, 'Results')
 
 
 def plot_csv(csv_file, ax):
+    colors = {'RF': 'b', 'NB': 'r', 'KNN': 'g', 'LR': 'pink', 'DT': 'C', 'NC': 'black'}
     results = pd.read_csv(csv_file)
 
     windows = results.pop('window-size')
 
     for col in results:
         max = results[col].idxmax()
-        ax.plot(windows, results[col], label=col)
+        ax.plot(windows, results[col], label=col, c=colors[col])
         ax.plot(windows[max], results[col][max], 'r*', label='peak')
 
     return ax
@@ -64,12 +65,15 @@ def plot_results(path):
             handle_list.append(handle)
             label_list.append(max_label)
 
+            # sort to always be in a same order
+            label_list, handle_list = zip(*sorted(zip(label_list, handle_list), key=lambda t: t[0]))
+
             ax.legend(handle_list, label_list, loc=(1.03, .72))
 
-            plt.xlabel('Windows Size')
+            plt.xlabel('Windows Size (s)')
             plt.ylabel('f1_score')
             plt.ylim([0, 1])
-            plt.title(figure_title)
+            #plt.title(figure_title)
 
             plt.savefig('{}/{}.png'.format(output_folder, figure_title))
 
