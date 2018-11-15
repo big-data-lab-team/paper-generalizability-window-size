@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5803cc35-e3f6-4d4e-b5fd-061416533ed9" name="Default Changelist" comment="Add test">
-      <change beforePath="$PROJECT_DIR$/Figures/Class_subject.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/Class_subject.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS1-iid-splitting-non-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS1-iid-splitting-non-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS1-iid-splitting-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS1-iid-splitting-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS1-subjective-splitting-non-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS1-subjective-splitting-non-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS1-subjective-splitting-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS1-subjective-splitting-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS2-iid-splitting-non-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS2-iid-splitting-non-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS2-iid-splitting-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS2-iid-splitting-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS2-subjective-splitting-non-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS2-subjective-splitting-non-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS2-subjective-splitting-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS2-subjective-splitting-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS3-iid-splitting-non-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS3-iid-splitting-non-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS3-iid-splitting-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS3-iid-splitting-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/FS3-subjective-splitting-non-overlapping.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/FS3-subjective-splitting-non-overlapping.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/KFold.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/KFold.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/ShuffleSplit.png" beforeDir="false" afterPath="$PROJECT_DIR$/Figures/ShuffleSplit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/subjective-CV.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/temporal-CV.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/Plot_figures.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/Plot_figures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/plot_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/plot_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample-bibliography.bib" beforeDir="false" afterPath="$PROJECT_DIR$/sample-bibliography.bib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample-sigconf.tex" beforeDir="false" afterPath="$PROJECT_DIR$/sample-sigconf.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samplebody-conf.tex" beforeDir="false" afterPath="$PROJECT_DIR$/samplebody-conf.tex" afterDir="false" />
-    </list>
+    <list default="true" id="5803cc35-e3f6-4d4e-b5fd-061416533ed9" name="Default Changelist" comment="Add test" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,14 +16,15 @@
     <session id="-1416072112">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
+          <entry key="project.closed" value="6" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.18" value="1" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -79,7 +58,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/plot_results.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="530">
@@ -94,33 +73,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/Plot_figures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
+            <state relative-caret-position="810">
               <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
               <folding>
                 <element signature="e#0#128#0" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Figures/Class_subject.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Figures/FS1-iid-splitting-non-overlapping.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Figures/LeaveOneGroupOut.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Figures/ShuffleSplit.png">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -142,7 +101,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="77" />
     <option name="y" value="47" />
     <option name="width" value="1269" />
@@ -153,6 +112,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,7 +139,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -306,9 +265,10 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1366" height="743" extended-state="7" />
+    <frame x="0" y="25" width="1366" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27045456" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.275" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -386,45 +346,26 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Figures/TimeSeriesSplit.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/TSCprocess.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Figures/TimeSeriesSplit.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/TSCprocess.jpeg" />
     <entry file="file://$PROJECT_DIR$/Scripts/1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS3-iid-splitting-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS3-subjective-splitting-non-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS3-iid-splitting-non-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS2-subjective-splitting-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS2-subjective-splitting-non-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS2-iid-splitting-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS2-iid-splitting-non-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS1-subjective-splitting-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS1-iid-splitting-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS1-subjective-splitting-non-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Figures/FS3-iid-splitting-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS3-subjective-splitting-non-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS3-iid-splitting-non-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS2-subjective-splitting-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS2-subjective-splitting-non-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS2-iid-splitting-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS2-iid-splitting-non-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS1-subjective-splitting-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS1-iid-splitting-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS1-subjective-splitting-non-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/FS1-iid-splitting-non-overlapping.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/subjective-CV.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/LeaveOneGroupOut.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/ShuffleSplit.png" />
+    <entry file="file://$PROJECT_DIR$/Figures/Class_subject.png" />
     <entry file="file://$PROJECT_DIR$/Scripts/plot_results.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="530">
@@ -435,30 +376,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/FS1-iid-splitting-non-overlapping.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/subjective-CV.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/LeaveOneGroupOut.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/ShuffleSplit.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/Plot_figures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
+        <state relative-caret-position="810">
           <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
           <folding>
             <element signature="e#0#128#0" expanded="true" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Figures/Class_subject.png">
-      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
 </project>
