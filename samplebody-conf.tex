@@ -1,5 +1,5 @@
 \section{Introduction[Skip please]}
-Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors like accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
+Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors such as accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
 
 \section{Background}
 \subsection{Activity recognition process}\label{subsec:ARP}
@@ -19,7 +19,7 @@ An Activity Recognition Process (ARP), also known as the activity recognition ch
 \begin{itemize}
 \item \textbf{Data acquisition:}There are several sensors attached to various parts of one's body which transform his or her performing action to a set of signals and transmit them to the receiver(s). 
 \item \textbf{Preprocesing:} The submitted data from sensors may be disrupted by artifacts caused
-by a variety of sources such as electronic fluctuations, sensor malfunctions, and physical activities. In order to eliminate such artifacts, we can apply varying kind of filtering process like the low-pass filter which was applied in some studies \cite{morris2014recofit}. It should be noted that applying these filters may result in removing some valuable information from the signals. 
+by a variety of sources such as electronic fluctuations, sensor malfunctions, and physical activities. In order to eliminate such artifacts, we can apply varying kind of filtering process including the low-pass filter which was applied in some studies \cite{morris2014recofit}. It should be noted that applying these filters may result in removing some valuable information from the signals. 
 
 % figure 2
 
@@ -44,7 +44,7 @@ Finally, the Machine Learning classifier is fed by the vector of features and co
 
 
 \subsection{Related work} \label{sub:theirwork}
-As discussed in the Section \ref{subsec:ARP} opting the number of data-points (window size)in the segmentation stage of the ARP can influence the performance of the classifiers and mostly is selected by trial and error or based on the previous studies. Banos et al \cite{banos2014window} does an extensive study to show such impact and provide a guideline to select the window size.They apply ARP (\ref{subsec:ARP}) on the acceleration data of a very big dataset \cite{banos2012benchmark} which is precisely explained in the Section \ref{sec:dataset}.\cite{banos2014window}segments the signals without any preprocessing by non-overlapping sliding window approach with diverse sizes ranging from .25 s to 7 s in the steps of .25 s.Regarding the feature extraction step, they consider three different feature sets(FS) namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = {mean, standard deviation, maximum, minimum and mean crossing rate}.Most of these features have been used in previous works due to their speed in the calculation and being informative and discriminative over each window. They also take advantage of four machine learning models: C4.5 decision trees (DT), k-nearest neighbors (KNN) with k=3, naive Bayes (NB) and nearest centroid classifier (NCC) to classify the activities and report the F1-score through a ten-fold cross-validation (10-fold XV) process to choose the optimal window size. We build on their work to remove several limitations which are explained in the next section.
+As discussed in the Section \ref{subsec:ARP} opting the number of data-points (window size)in the segmentation stage of the ARP can influence the performance of the classifiers and mostly is selected by trial and error or based on the previous studies. Banos et al \cite{banos2014window} does an extensive study to show such impact and provide a guideline to select the window size.They apply ARP (\ref{subsec:ARP}) on the acceleration data of a very big dataset \cite{banos2012benchmark} which is precisely explained in the Section \ref{sec:dataset}.\cite{banos2014window}segments the signals without any preprocessing by non-overlapping sliding window approach with diverse sizes ranging from .25 s to 7 s in the steps of .25 s.Regarding the feature extraction step, they consider three different feature sets(FS) namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = {mean, standard deviation, maximum, minimum and mean crossing rate}.Most of these features have been used in previous works due to their speed in the calculation and being informative and discriminative over each window. They also take advantage of four machine learning models: C4.5 Decision Trees (DT), K-Nearest Neighbors (KNN) with k=3, Naive Bayes (NB) and Nearest Centroid Classifier (NCC) to classify the activities and report the F1-score through a ten-fold cross-validation (10-fold XV) process to choose the optimal window size. We build on their work to remove several limitations which are explained in the next section.
 
 \subsection{Motivation for our study}
 In this section two significant determinants which are overlooked in \cite{banos2014window} are examined categorically.
@@ -53,7 +53,7 @@ In this section two significant determinants which are overlooked in \cite{banos
   \centering
   \subfigure[Non-overlapping]{
 \label{subfig:NOSW}\includegraphics[scale=0.32]{Figures/NOSW.png}}\quad
-  \subfigure[Overlapping-2.5 s sharing s]{\label{subfig:OSW}\includegraphics[scale=0.32]{Figures/OSW.png}}
+  \subfigure[Overlapping-2.5 s sharing ]{\label{subfig:OSW}\includegraphics[scale=0.32]{Figures/OSW.png}}
 
    \caption{5 second sliding window}
    \label{fig:SlidingWindow}
@@ -61,7 +61,7 @@ In this section two significant determinants which are overlooked in \cite{banos
 
 \begin{itemize}
 \item \textbf{Non-overlapping sliding window}:As described in Section \ref{sub:theirwork}, \cite{banos2014window} uses a non-overlapping sliding window technique in the segmentation step of the human activity process.Figure \ref{fig:SlidingWindow} apparently shows the non-overlapping sliding window and overlapping sliding window processes. In segmentation step of ARP, we try to segment the signals so that the data points of each activity settle entirely in a window and also each window contains the observations of only one activity in order to make the features calculation over each window more discriminative.
-As can be seen in the \ref{fig:SlidingWindow}, the probability of alighting each activity in a window and having a purer window in \ref{fig:NOSW} is lower than that in \ref{fig:OSW}.To illustrate, consider an activity which starts from t=5s and lasts 10 s.In the non-overlapping approach, the half of data-points settle in the first window and the rest will be in the next window. However, in the overlapping sliding window, the entire activity will be in the second window. On the other hand, the overlapping approach captures more patterns in the signals and leads to more data which usually appropriate for machine learning models. Thus, making decision for any part of the human ARP base on the non-overlapping sliding window may be not accurate.\newline
+As can be seen in the \ref{fig:SlidingWindow}, the probability of alighting each activity in a window and having a purer window in \ref{subfig:NOSW} is lower than that in \ref{fig:subOSW}.To illustrate, consider an activity which starts from t=5s and lasts 10 s.In the non-overlapping approach, the half of data-points settle in the first window and the rest will be in the next window. However, in the overlapping sliding window, the entire activity will be in the second window. On the other hand, the overlapping approach captures more patterns in the signals and leads to more data which usually appropriate for machine learning models. Thus, making decision for any part of the human ARP base on the non-overlapping sliding window may be not accurate.\newline
 
 
 \item \textbf{Classic K-fold cross-validation (CV) process}:
@@ -140,7 +140,7 @@ Repetitive forward stretching (20x) & \tabularnewline
 %  end of Table1
 
 \subsection{Study setup}
-In this section the setting of our work for ARP which was explained before in Section \ref{subsec:ARP} is clarified. Like \cite{banos2014window} in this work no preprocessing is applied to the dataset. As for segmentation stage, the overlapping sliding window technique sliding at 200 ms for diverse window sizes ranging from .25 s to 7 s is used (i.e., each 5s window shares 4.8s of data with the previous window). Regarding the feature extraction step, the same feature sets as \cite{banos2014window} are considered. Finally, for the classification part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(KNN, K=3), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
+In this section the setting of our work for ARP which was explained before in Section \ref{subsec:ARP} is clarified.Simiar to \cite{banos2014window}, in this work no preprocessing is applied to the dataset. As for segmentation stage, the overlapping sliding window technique sliding at 200 ms for diverse window sizes ranging from .25 s to 7 s is used (i.e., each 5s window shares 4.8s of data with the previous window). Regarding the feature extraction step, the same feature sets as \cite{banos2014window} are considered. Finally, for the classification part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(KNN, K=3), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
 
 Here, in order to evaluate the model performance under different window sizes, we use a subject CV process (see Section \ref{sub:subjective CV} for explanation).
 
@@ -238,7 +238,12 @@ In the subject CV (Figure \ref{fig:NO-subjective-results}), KNN, LR, RF and DT m
 
 
 \section{Discussion}
+  
+\subsection{Reproducibility}
+The reproduced results of \cite{banos2014window} is represented in Figure \ref{fig:O-iid-results}.This results are not identical but consistence with the results of Banos et al study.The first reason may be that as described in Section \ref{sub:theirwork}, they used F1-score as the performance metrics and did not clarify how F1-score was calculated in their work.F1-score is a harmonic mean between precision and recall and in case of multiclass targets can be computed in different ways such as calculating metrics globally by counting total true positives, false negatives and false positives and calculate metrics for each label and report the mean of them as F1-score.Another reason is that, since in K-Fold CV selects the samples to be in test and training sets randomly, it may leads to changes the performance of same classifier each time.
 
+
+\subsection{Challenges and limitations}
 
 
 \section{Conclusions}
