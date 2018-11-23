@@ -3,6 +3,6 @@ A paper reporting on experiments with the generalizability of window sizes for a
 
 In order to run the script(s) in the "Scripts" folder, please first run this command:
 
-source Scripts/packages.txt
+source Scripts/packages.sh
 
 
