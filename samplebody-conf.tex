@@ -1,5 +1,5 @@
-\section{Introduction[Skip please]}
-Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors such as accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
+\section{Introduction}
+%Thanks to the potential application prospects of Human Activity Recognition(HAR)in security, virtual reality, sports training and health care[2], it has become a very hot and interesting research field for the machine-learning community in the past decades. It takes advantage of data coming from internal sensors such as accelerator and gyroscope to automatically classify user activities. Since the structure of data coming from sensors is stochastic over time, in order to classify them, we have to apply one of the time series classification techniques such as sliding window.
 
 \section{Background}
 \subsection{Activity recognition process}\label{subsec:ARP}
@@ -8,7 +8,7 @@ Thanks to the potential application prospects of Human Activity Recognition(HAR)
 \begin{figure}[h]
     \centering
     \includegraphics[width=.5\textwidth]{Figures/HARP.png}
-    \caption{Time Series classification process through sliding window approach}
+    \caption{Human activity recognition process}
     \label{fig:tsprocess}
 \end{figure}
 
@@ -46,7 +46,7 @@ Finally, the Machine Learning classifier is fed by the vector of features and co
 \subsection{Related work} \label{sub:theirwork}
 As discussed in the Section \ref{subsec:ARP} opting the number of data-points (window size)in the segmentation stage of the ARP can influence the performance of the classifiers and mostly is selected by trial and error or based on the previous studies. Banos et al \cite{banos2014window} does an extensive study to show such impact and provide a guideline to select the window size.They apply ARP (\ref{subsec:ARP}) on the acceleration data of a very big dataset \cite{banos2012benchmark} which is precisely explained in the Section \ref{sec:dataset}.\cite{banos2014window}segments the signals without any preprocessing by non-overlapping sliding window approach with diverse sizes ranging from .25 s to 7 s in the steps of .25 s.Regarding the feature extraction step, they consider three different feature sets(FS) namely FS1 = {mean}, FS2 ={mean and standard deviation} and FS3 = {mean, standard deviation, maximum, minimum and mean crossing rate}.Most of these features have been used in previous works due to their speed in the calculation and being informative and discriminative over each window. They also take advantage of four machine learning models: C4.5 Decision Trees (DT), K-Nearest Neighbors (KNN) with k=3, Naive Bayes (NB) and Nearest Centroid Classifier (NCC) to classify the activities and report the F1-score through a ten-fold cross-validation (10-fold XV) process to choose the optimal window size. We build on their work to remove several limitations which are explained in the next section.
 
-\subsection{Motivation for our study}
+\subsection{Motivation for our study} \label{our motivation}
 In this section two significant determinants which are overlooked in \cite{banos2014window} are examined categorically.
 
 \begin{figure}[htp]
@@ -60,7 +60,7 @@ In this section two significant determinants which are overlooked in \cite{banos
 \end{figure}
 
 \begin{itemize}
-\item \textbf{Non-overlapping sliding window}:As described in Section \ref{sub:theirwork}, \cite{banos2014window} uses a non-overlapping sliding window technique in the segmentation step of the human activity process.Figure \ref{fig:SlidingWindow} apparently shows the non-overlapping sliding window and overlapping sliding window processes. In segmentation step of ARP, we try to segment the signals so that the data points of each activity settle entirely in a window and also each window contains the observations of only one activity in order to make the features calculation over each window more discriminative.
+\item \textbf{Non-overlapping sliding window}:As described in Section \ref{sub:theirwork}, \cite{banos2014window} uses a non-overlapping sliding window technique in the segmentation step of the human activity process.Figure \ref{fig:SlidingWindow} apparently shows the non-overlapping sliding window and overlapping sliding window processes. In the segmentation step of ARP, we try to segment the signals so that the data points of each activity settle entirely in a window and also each window contains the observations of only one activity in order to make the features calculation over each window more discriminative.
 As can be seen in the \ref{fig:SlidingWindow}, the probability of alighting each activity in a window and having a purer window in \ref{subfig:NOSW} is lower than that in \ref{fig:subOSW}.To illustrate, consider an activity which starts from t=5s and lasts 10 s.In the non-overlapping approach, the half of data-points settle in the first window and the rest will be in the next window. However, in the overlapping sliding window, the entire activity will be in the second window. On the other hand, the overlapping approach captures more patterns in the signals and leads to more data which usually appropriate for machine learning models. Thus, making decision for any part of the human ARP base on the non-overlapping sliding window may be not accurate.\newline
 
 
@@ -140,7 +140,7 @@ Repetitive forward stretching (20x) & \tabularnewline
 %  end of Table1
 
 \subsection{Study setup}
-In this section the setting of our work for ARP which was explained before in Section \ref{subsec:ARP} is clarified.Simiar to \cite{banos2014window}, in this work no preprocessing is applied to the dataset. As for segmentation stage, the overlapping sliding window technique sliding at 200 ms for diverse window sizes ranging from .25 s to 7 s is used (i.e., each 5s window shares 4.8s of data with the previous window). Regarding the feature extraction step, the same feature sets as \cite{banos2014window} are considered. Finally, for the classification part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(KNN, K=3), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
+In this section the setting of our work for ARP which was explained before in Section \ref{subsec:ARP} is clarified.Similar to \cite{banos2014window}, in this work no preprocessing is applied to the dataset. As for segmentation stage, the overlapping sliding window technique sliding at 200 ms for diverse window sizes ranging from .25 s to 7 s is used (i.e., each 5s window shares 4.8s of data with the previous window). Regarding the feature extraction step, the same feature sets as \cite{banos2014window} are considered. Finally, for the classification part, several powerful and common machine learning models are selected for discrimination of activities: Decision Tree (DT),k-nearest neighbors(KNN, K=3), Naive Bayes (NB), Nearest centroid classifier (NCC), Random forest(RF)and Logistic regression classifier(LR).We used these classifiers as implemented in scikit-learn 0.20 \cite{pedregosa2011scikit}.\newline
 
 Here, in order to evaluate the model performance under different window sizes, we use a subject CV process (see Section \ref{sub:subjective CV} for explanation).
 
@@ -155,7 +155,9 @@ As can be seen in Figure \ref{fig:class}, the dataset is extremely imbalance mea
 \end{figure}
 
 \subsection{Subject cross-validation process} \label{sub:subjective CV}
-As mentioned before in section \ref{sec:dataset}, the used dataset in this study comprises the observations of 17 subjects with diverse profiles; consequently, such dataset is likely to be dependent on individual subjects. Under such circumstances, a safe approach to know the performance of the model is training on a particular set of subjects data and validate on the unseen ones in order to know how the trained model generalizes well on different groups. Although this method might be time-consuming (especially when the number of subjects is high), it is a very encouraging way to evaluate the domain-specific datasets. As can be seen in Figure \ref{fig:Subjective-cv}, in each fold the model trained on all groups except one which is used for testing.
+It is obvious that people based on their characteristics such as gender, age, experience, etc may do the same activity in different ways.On the other hand, the ultimate goal of HAR is building a model which can identify the activity of people with diverse features through leaning on a subset of population.Thus, a powerful human activity recognizer would be a model which can generalize well among different subjects.Consequently, the best approach to evaluate the performance of the HAR model is training on a particular set of subjects data and validate on the unseen ones in order to know how well the trained model generalizes on different subjects. Although this method might be time-consuming (especially when the number of subjects is high), it is a very encouraging way to evaluate the domain-specific datasets.Figure \ref{fig:Subjective-cv} represents this approach which we named it \textbf{Subject Cross-Validation Process}.As can be seen,in each fold the model trained on all subjects except one which is used for testing.
+
+
 
 % figure 4
 \begin{figure}[h]
@@ -167,14 +169,55 @@ As mentioned before in section \ref{sec:dataset}, the used dataset in this study
 
 
 \section{Results}
+% will change 
+The main goal of this study is showing that the subject cross validation should be applied to evaluate the discriminative power of a human activity recognition model.Similarly, the same process should be used to optimize any of the parameters of HARP including size of window in the segmentation stage based on the performance of model.%In this Section, the performance of different classifiers under diverse snnario 
 
-In this section, the performance of models for diverse window sizes is examined.Figure \ref{fig:NO-iid-results}, \ref{fig:O-iid-results}, \ref{fig:NO-subjective-results} and \ref{fig:O-subjective-results} indicate the impact of different window size on the recognition performance (F1-score) of several classifiers for the combination of two sliding window techniques (non-overlapping and overlapping) and two cross-validation processes (subject and i.i.d).At the first glance, it can be seen that the performance of the models improves as the feature set becomes richer, particularly FS2 which notably empowers the classifiers such as NC and NB in comparison with FS1. The differences among the results for FS1,FS2, and FS3 may show that having more features may lead to better performances. Overall, window size= 1 s was a "cut-off" for all scenarios and from this values on, no significant benefit was obtained.\newline
 
-In the Non-overlapping windowing of i.i.d CV (Figure \ref{fig:NO-iid-results} ), in general, the performance of KNN, DT and RF models showed a downward trend as the size of window rose. The optimal window size for DT and RF models was the same in FS1 and FS2 at .25 s and 1.25 s respectively, but it was different in FS3. As for KNN, it ranked first among all models for all feature sets with the F1-score above 0.96 for FS1 and FS2 and almost 0.96 for FS3. This classifier allows us to maximally decline the window size. While the size of window grew, there was a slight fluctuation in the performance of RF. It peaked at window size 1.5 s for FS1 and 1.25 s for FS2 and FS3.In general, the performance of NB and NC models , except for FS3-NC, went up as the size of window increased. In particular, enlarging the window size by 1 s was resulted in rising up to 50\% and 30\% for NC and NB models respectively.
+
+%The main objective of this project is showing that in order to select the parameters of HARP including the size of window in the segmentation stage based on the discriminative power of the model
+%The main goal of this study is showing that the subject cross validation should be applied to make any decision for the select the value of different parameters of HARP based on the discriminative power of a human activity recognition model in different stages specifically window size in the segmentation stage.
+
+%and optimize different parameters . Similarly, to make any decision for any stage of HARP including choosing the size of window in the segmentation step based on the power of the model 
+%The goal of this study is to compare the impact of cross subject cross validation and classic cross validation process on the choose of optimal window size in the segmentation step of ARP.
+%In this section, the performance of models for diverse window sizes is examined.% will change
+\subsection{i.i.d Cross Validation}
+\begin{itemize}
+    \item[] \textbf{Motivation:} As discussed in Section \ref{our motivation}, due to the i.i.d assumption of classic k-fold CV, evaluating time series datasets through it is not accurate and would resulted in not reasonable performances and similarly, using non-overlapping sliding window approach may lead to overlooking some important patterns in the signals.However, here, we used them in order to reproduce Banos et al \cite{banos2014window} study and also show that using overlapping sliding window how change their results.
+    
+     \item[] \textbf{Approach:} In order to reproduce Banos et al \cite{banos2014window} work, we applied their experiment setting (see Section \ref{sub:theirwork}) on the same  dataset described earlier in Section \ref{sec:dataset}.Please note that here, we also add two more classifiers namely Random Forest(RF)and Logistic Regression classifier(LR) to their applied models.The sizes of sliding window are the same as their setup and for overlapping technique, 200 ms overlap is chosen.
+     
+     \item[] \textbf{Results:}
+     In the Non-overlapping windowing of i.i.d CV (Figure \ref{fig:NO-iid-results} ), in general, the performance of KNN, DT and RF models showed a downward trend as the size of window rose. The optimal window size for DT and RF models was the same in FS1 and FS2 at .25 s and 1.25 s respectively, but it was different in FS3. As for KNN, it ranked first among all models for all feature sets with the F1-score above 0.96 for FS1 and FS2 and almost 0.96 for FS3. This classifier allows us to maximally decline the window size. While the size of window grew, there was a slight fluctuation in the performance of RF. It peaked at window size 1.5 s for FS1 and 1.25 s for FS2 and FS3.In general, the performance of NB and NC models , except for FS3-NC, went up as the size of window increased. In particular, enlarging the window size by 1 s was resulted in rising up to 50\% and 30\% for NC and NB models respectively.
  \newline
 By contrast, as Figure \ref{fig:O-iid-results} represents, while the size of window climbed, the performance of KNN, DT, LR and RF rose in general. Although the correlation between optimal window size for DT and RF was the same as before (equal for FS1 and FS2 and varying for FS3), here it enlarged tremendously and overall, they needed the largest window size among all models for all feature sets. However, this change was gradual for LR model. KNN like before stood out among all model for all feature sets, but it no longer was the best in terms of optimal window size.NB and NC showed a similar trend to non-overlapping and they reached to the best F1-score between 1 s and 2 s and generally needed shortest window size for that.\newline
+     
+     
+     
+\end{itemize}
+\subsection{Subject Cross Validation}
 
-In the subject CV (Figure \ref{fig:NO-subjective-results}), KNN, LR, RF and DT models showed a similar trend and surprisingly, their classification performance dropped substantially and never reached the F1-score above 90 \%. However, for NB and NC the performance remained unchanged. Here, broadly as the window size increased, the F1-score of KNN, LR, RF, and DT fell slowly and went up for NB and NC.KNN model in terms of performance and shorter window size placed the first among all models.LR and RF at most needed 1 s window size to hit their peaks.
+\begin{itemize}
+ \item[] \textbf{Motivation:}
+ As explained earlier in Section \ref{sub:subjective CV}, in order to measure the performance of the HAR model, it is crucial to apply subjective cross validation process.Thus, here, the subject cross validation process is used instead of classic cross validation process to show the impact of it on the performance of classifiers and also on the optimal window sizes based on the performances for different models based on non-overlapping and overlapping sliding window techniques. 
+ 
+ \item[] \textbf{Approach:}
+ As mentioned before in Section \ref{sec:dataset}, the used dataset in this study comprises the activity observations of 17 subjects, in order to apply subject cross validation, in each iteration we train the model on the data of 16 subjects and test the performance of the model on the unused subject data (we have 17 folds).Figure \ref{fig:Subjective-cv} represents the iterations of subject cross validation.The settings for window sizes, classifiers and sliding window techniques are the same as previous Section.
+ \item[] \textbf{Results:}
+In the non-overlapping subject CV (Figure \ref{fig:NO-subjective-results}), KNN, LR, RF and DT models showed a similar trend and surprisingly, their classification performance dropped substantially and never reached the F1-score above 90 \%. However, for NB and NC the performance remained unchanged. Here, in general,  as the window size increased, the F1-score of KNN, LR, RF, and DT fell slowly and conversely, went up for NB and NC.KNN model in terms of performance and shorter window size placed the first among all models.LR and RF at most needed 1 s window size to hit their peaks.\newline
+Similarly, the performance of all models remained almost unchanged in comparison to the non-overlapping version.As for the optimal window, except for NB which reduce by 1 s, for all of the models plateaued and again the same as before, the best window size for almost all models was between 1 s and 2 s.Regarding the best model in terms of F1-score and minimum window size, LR and KNN ranked first among all models.   
+
+
+
+
+
+ 
+ \end{itemize}
+
+%.Figure \ref{fig:NO-iid-results}, \ref{fig:O-iid-results}, \ref{fig:NO-subjective-results} and \ref{fig:O-subjective-results} indicate the impact of different window size on the recognition performance (F1-score) of several classifiers for the combination of two sliding window techniques (non-overlapping and overlapping) and two cross-validation processes (subject and i.i.d).At the first glance, it can be seen that the performance of the models improves as the feature set becomes richer, particularly FS2 which notably empowers the classifiers such as NC and NB in comparison with FS1. The differences among the results for FS1,FS2, and FS3 may show that having more features may lead to better performances. Overall, window size= 1 s was a "cut-off" for all scenarios and from this values on, no significant benefit was obtained.\newline
+
+
+
+
 
 
 
@@ -219,7 +262,7 @@ In the subject CV (Figure \ref{fig:NO-subjective-results}), KNN, LR, RF and DT m
   \subfigure[FS1]{
 \label{fig:O-FS1-sbj}\includegraphics[scale=0.355]{Figures/FS1-subjective-splitting-overlapping.png}}\quad
   \subfigure[FS2]{\label{fig:O-FS2-sbj}\includegraphics[scale=0.355]{Figures/FS2-subjective-splitting-overlapping.png}}
-  %\subfigure[FS3]{\label{fig:O-FS3-sbj}\includegraphics[scale=0.355]{Figures/FS3-subjective-splitting-overlapping.png}}
+  \subfigure[FS3]{\label{fig:O-FS3-sbj}\includegraphics[scale=0.355]{Figures/FS3-subjective-splitting-overlapping.png}}
    
    \caption{Overlapping windowing-subject CV}
     \label{fig:O-subjective-results}
