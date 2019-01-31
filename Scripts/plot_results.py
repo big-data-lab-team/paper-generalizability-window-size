@@ -1,15 +1,17 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import os
 import glob
+import os
 
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.rcParams['font.size'] = 12
 project_root = os.path.dirname(os.path.dirname(__file__))
 output_folder = os.path.join(project_root, 'Figures')
 input_path = os.path.join(project_root, 'Results')
 
 
 def plot_csv(csv_file, ax):
-    colors = {'RF': 'b', 'NB': 'r', 'KNN': 'g', 'LR': 'pink', 'DT': 'C', 'NC': 'black'}
+    colors = {'NB': 'green', 'KNN': 'orange', 'DT': 'blue', 'NC': 'r'}
     results = pd.read_csv(csv_file)
 
     windows = results.pop('window-size')
@@ -68,11 +70,11 @@ def plot_results(path):
             # sort to always be in a same order
             label_list, handle_list = zip(*sorted(zip(label_list, handle_list), key=lambda t: t[0]))
 
-            ax.legend(handle_list, label_list, loc=(1.03, .72))
+            ax.legend(handle_list, label_list, loc=(1.004, .72))
 
             plt.xlabel('Windows Size (s)')
             plt.ylabel('f1_score')
-            plt.ylim([0, 1])
+            plt.ylim([0.2, 1])
             #plt.title(figure_title)
 
             plt.savefig('{}/{}.png'.format(output_folder, figure_title))
