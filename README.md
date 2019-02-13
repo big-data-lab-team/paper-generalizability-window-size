@@ -4,7 +4,6 @@ A paper investigatig the impact of subject cross Validation and Overlapping slid
 
 The Scripts folder contains the modules for:  
 1- Preprocessing (windowing and feature extraction) the dataset 
-
 <a href="https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset"> (here) </a>
 
 
