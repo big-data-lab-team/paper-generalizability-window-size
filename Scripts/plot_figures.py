@@ -1,5 +1,4 @@
-from sklearn.model_selection import (TimeSeriesSplit, KFold,
-                                     LeaveOneGroupOut,ShuffleSplit)
+from sklearn.model_selection import (KFold,LeaveOneGroupOut,ShuffleSplit)
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
@@ -57,7 +56,7 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
     ax.set(yticks=np.arange(n_splits+2) + .5, yticklabels=yticklabels,
            xlabel='Sample index', ylabel="CV iteration",
            ylim=[n_splits+2.2, -.2], xlim=[0, len(X)])
-    #ax.set_title('{}'.format(type(cv).__name__), fontsize=15)
+  
     return ax
 
 
