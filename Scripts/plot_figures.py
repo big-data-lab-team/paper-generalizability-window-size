@@ -1,9 +1,9 @@
-from sklearn.model_selection import (TimeSeriesSplit, KFold,
-                                     LeaveOneGroupOut,ShuffleSplit)
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import Patch
+import numpy as np
 import pandas as pd
+from matplotlib.patches import Patch
+from sklearn.model_selection import (LeaveOneGroupOut, ShuffleSplit)
+
 np.random.seed(1)
 
 def plot_group_class(classes, groups):
@@ -72,6 +72,7 @@ def plot_cv(dataset,CVs,n_splits):
 
     groups = dataset['group'].values.ravel()
 
+    gh = dataset['group'].value_counts(sort=True)
     X = dataset.iloc[:, 1:-1].values
 
     Y = dataset.iloc[:, dataset.shape[1] - 1].values

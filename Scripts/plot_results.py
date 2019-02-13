@@ -11,14 +11,14 @@ input_path = os.path.join(project_root, 'Results')
 
 
 def plot_csv(csv_file, ax):
-    colors = {'NB': 'green', 'KNN': 'orange', 'DT': 'blue', 'NC': 'r'}
+    colors = {'NB': 'green', 'KNN': 'orange', 'DT': 'blue', 'NCC': 'r'}
     results = pd.read_csv(csv_file)
 
     windows = results.pop('window-size')
 
     for col in results:
         max = results[col].idxmax()
-        ax.plot(windows, results[col], label=col, c=colors[col])
+        ax.plot(windows, results[col], label=col, c=colors[col.strip()])
         ax.plot(windows[max], results[col][max], 'r*', label='peak')
 
     return ax
