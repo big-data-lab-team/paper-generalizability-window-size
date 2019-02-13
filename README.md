@@ -1,4 +1,5 @@
-# Subject Cross Validation in Human Activity Recognition
+<h1>Subject Cross Validation in Human Activity Recognition</h1>
+
 A paper investigatig the impact of subject cross Validation and Overlapping sliding windows in activity recognition systems.
 
 The Scripts folder contains the modules for:
