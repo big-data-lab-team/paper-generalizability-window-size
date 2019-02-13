@@ -2,13 +2,13 @@
 
 A paper investigatig the impact of subject cross Validation and Overlapping sliding windows in activity recognition systems.
 
-The Scripts folder contains the modules for:  
+The Scripts folder contains the modules for: 
+
 1- Preprocessing (windowing and feature extraction) the dataset 
 <a href="https://archive.ics.uci.edu/ml/datasets/REALDISP+Activity+Recognition+Dataset"> (here) </a>
-
-
-(<p>(<a) 
+ 
 2- Applying classification on windowed dataset
+
 3- Generating all figures in the paper 
 
 Please first install required python packages through running this command:
