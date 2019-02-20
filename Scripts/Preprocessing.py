@@ -85,17 +85,17 @@ def windowing_dataset(dataset, win_size, feature_extraction_function, subject_id
     return final
 
 
-def Preprocessing(start_window_size, last_window_size, features_functions,
-                  dataset_path, output_path, overlapping):
-    if (not os.path.exists(dataset_path)):
-        print("Dataset path does not exist!!")
-        return
+def Preprocessing(dataset_path, output_path, overlapping):
+    # if (not os.path.exists(dataset_path)):
+    #     print("Dataset path does not exist!!")
+    #     return
+    #
+    # if (not os.path.exists(output_path)):
+    #     print("Output path does not exist!!")
+    #     return
 
-    if (not os.path.exists(output_path)):
-        print("Output path does not exist!!")
-        return
-
-    win_sizes = np.linspace(start_window_size, last_window_size, 28, endpoint=True)
+    features_functions = [FS1, FS2, FS3]
+    win_sizes = np.linspace(.25, 7, 28, endpoint=True)
     for win_size in win_sizes:
 
         print("Start for win size {}".format(win_size))
@@ -131,7 +131,7 @@ def Preprocessing(start_window_size, last_window_size, features_functions,
             if overlapping:
                 out_folder_name = 'Overlapping_windowed'
             else:
-                output_folder_name = 'Non-overlapping_windowed'
+                out_folder_name = 'Non-overlapping_windowed'
 
             os.makedirs('{}/{}'.format(output_path, out_folder_name), exist_ok=True)
 
@@ -153,19 +153,41 @@ def Preprocessing(start_window_size, last_window_size, features_functions,
 ############################################################################################################################
 
 '''
-Segmentation function:
+
  - Reads the raw data from input_path
  - Segments the raw datasets into windowed ones by different window sizes  
  - From each window it extracts FS1,FS2 and FS3.
- -  The results are stored in output_path. 
+ - Saves results in output_path. 
+ 
+  Parameters:
+    -----------
+    dataset_path : Path of raw dataset
+    
+    output_path : Path to save the processed dataset
+    
+    overlapping : Controls the sliding windows technique;
+    1: Overlapping sliding windows
+    0: Non-overlapping sliding windows
+
+    
 
 '''
-output_path = './windowed_dataset'
-input_path = './data/Behzad/dataset'
 
-'''
-By overlapping variable, you can select the sliding windows technique
-'''
-Preprocessing(start_window_size=.25, last_window_size=7, features_functions=[FS1, FS2, FS3],
-              dataset_path=input_path, output_path=output_path, overlapping=True)
+input_path = input('Please enter raw dataset path:')
+output_path = input('Please enter the output path:')
+overlapping = input(
+    'please select sliding windows techniques (1 : Overlapping sliding windows / 0 : Non-overlapping sliding windows )')
 
+if not os.path.exists(input_path):
+    raise ValueError("Dataset path does not exist!!")
+
+if not os.path.exists(output_path):
+    raise ValueError("Output path does not exist!!")
+
+if not overlapping.isnumeric():
+    raise ValueError('Please select 0 or 1 for sliding windows technique')
+
+elif int(overlapping) not in [0, 1]:
+    raise ValueError('Please select correct digit for sliding windows technique')
+
+Preprocessing(dataset_path=input_path, output_path=output_path, overlapping=bool(overlapping))
