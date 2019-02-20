@@ -190,4 +190,4 @@ if not overlapping.isnumeric():
 elif int(overlapping) not in [0, 1]:
     raise ValueError('Please select correct digit for sliding windows technique')
 
-Preprocessing(dataset_path=input_path, output_path=output_path, overlapping=bool(overlapping))
+Preprocessing(dataset_path=input_path, output_path=output_path, overlapping=bool(int(overlapping)))
