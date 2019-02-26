@@ -53,7 +53,7 @@ def FS3(window):  # mean, std,max,min and zero-crossing-rate
 
     features = np.hstack(features).tolist()
 
-    label = window.iloc[:, -1].mode()  ## select the most frequent label as the label of the window
+    label = window.iloc[:, -1].mode()[0]  ## select the most frequent label as the label of the window
     features.append(label)
     return features
 
