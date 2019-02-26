@@ -34,7 +34,7 @@ def FS2(window):  # Mean and std
     features.append(np.array(window.std()[:-1]))
     features = np.hstack(features).tolist()
 
-    label = window.iloc[:, -1].mode()  ## select the most frequent label as the label of the window
+    label = window.iloc[:, -1].mode()[0] ## select the most frequent label as the label of the window
 
     features.append(label)
 
