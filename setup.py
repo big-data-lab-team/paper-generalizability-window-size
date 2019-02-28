@@ -14,7 +14,7 @@ setup(
 
     REQUIRED=['numpy', 'pandas', 'sklearn', 'matplotlib'],  # external packages as dependencies
     scripts=[
-        'Scripts/Classification.py',
+        
         'Scripts/plot_figures.py',
         'Scripts/plot_results.py',
         'Scripts/Preprocessing.py'
