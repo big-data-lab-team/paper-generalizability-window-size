@@ -17,6 +17,7 @@ setup(
         
         'Scripts/plot_figures.py',
         'Scripts/plot_results.py',
-        'Scripts/Preprocessing.py'
+        'Scripts/Preprocessing.py',
+        'Scripts/Classification.py'
     ]
 )
