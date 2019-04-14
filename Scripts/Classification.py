@@ -6,14 +6,34 @@ import sys
 import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
+from sklearn.model_selection import KFold
 from sklearn.model_selection import LeaveOneGroupOut
+from sklearn.model_selection import cross_val_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors.nearest_centroid import NearestCentroid
 from sklearn.tree import DecisionTreeClassifier
 
 
-def apply_classifiers(dataset_path):
+def subject_cross_validation(X, Y, groups, classifier):
+    f1 = []
+    logo = LeaveOneGroupOut()
+
+    for train_index, test_index in logo.split(X, Y, groups=groups):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = Y[train_index], Y[test_index]
+
+        classifier.fit(X_train, y_train)
+
+        y_pred = classifier.predict(X_test)
+        f1.append(f1_score(y_true=y_test, y_pred=y_pred, average='micro'))
+    return np.mean(f1)
+
+
+# cv_strategy can be iid or sbj for k-fold cv and subject cv respectively
+
+def apply_classifiers(dataset_path, models, cv_strategy):
+
     folders = list(filter(lambda x: os.path.isdir(os.path.join(dataset_path, x)), os.listdir(dataset_path)))
 
     for folder in folders:
@@ -38,26 +58,26 @@ def apply_classifiers(dataset_path):
             groups = dataset['group']
             X = dataset.iloc[:, 1:-1].values
 
-            Y = dataset.iloc[:, dataset.shape[1] - 1].values
+            Y = dataset.iloc[:, -1].values
 
-            logo = LeaveOneGroupOut()
+
             for model_name, model in models.items():
-                f1 = []
+                f1 = 0
 
-                for train_index, test_index in logo.split(X, Y, groups=groups):
-                    X_train, X_test = X[train_index], X[test_index]
-                    y_train, y_test = Y[train_index], Y[test_index]
+                if cv_strategy == 'sbj':
 
-                    classifier = model
-                    classifier.fit(X_train, y_train)
+                    f1 = subject_cross_validation(X, Y, groups, model)
 
-                    y_pred = classifier.predict(X_test)
-                    f1.append(f1_score(y_true=y_test, y_pred=y_pred, average='micro'))
+                else:
+
+                    f1 = cross_val_score(estimator=model, X=X, y=Y,
+                                         cv=KFold(n_splits=10, shuffle=True, random_state=1), scoring='f1_micro',
+                                         n_jobs=-1).mean()
 
                 if win_size in results:
-                    results[win_size].append(np.mean(f1))
+                    results[win_size].append(f1)
                 else:
-                    results[win_size] = [np.mean(f1)]
+                    results[win_size] = [f1]
 
         # export as csv file
 
@@ -74,7 +94,18 @@ def apply_classifiers(dataset_path):
             flattened = [val for sublist in tmp for val in sublist]
             final.append(flattened)
 
-        np.savetxt('./Results/{}-subjectCV.csv'.format(folder), final, delimiter=',', fmt='%s')
+        output_name = ''
+        if cv_strategy == 'sbj':
+
+            output_name = folder + '-' + 'subjective'
+
+        else:
+
+            output_name = folder + '-' + 'iid'
+
+        np.savetxt(os.path.join(os.path.dirname(os.getcwd()), 'Results', output_name + '.csv'), final, delimiter=',',
+                   fmt='%s')
+
 
 
 models = {'DT': DecisionTreeClassifier(criterion='entropy'), 'NB': GaussianNB(),
@@ -90,4 +121,4 @@ elif (not os.path.exists(sys.argv[1])):
 else:
     dataset_path = sys.argv[1]
 
-    apply_classifiers(dataset_path=dataset_path)
+    apply_classifiers(dataset_path=dataset_path, models=models, cv_strategy='sbj')
