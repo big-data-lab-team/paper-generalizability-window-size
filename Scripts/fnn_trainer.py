@@ -1,10 +1,4 @@
-#########################################################################################
-# Copyright (c) 2010 - 2018, Motsai
-# All rights reserved.
-#
-# Proprietary and confidential
-# Unauthorized copying of this file, via any medium is strictly prohibited.
-#
+##########################################################################################
 # fnn_trainer.py - example code to create a dump AI engine to be transferred to Neblina
 #
 #  Created on: Feb. 18th, 2019
